@@ -13,7 +13,7 @@ define([
         },
 
         initialize: function() {
-            this.listenTo(this.model, 'stateChange', this._setViewState, this);
+            this.listenTo(this.model, 'stateChange', this._setViewState);
         },
 
         _setViewState: function() {

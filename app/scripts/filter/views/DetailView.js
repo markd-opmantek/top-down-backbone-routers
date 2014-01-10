@@ -14,7 +14,7 @@ define([
         ),
 
         initialize: function() {
-            this.listenTo(this.model, 'change:details', this.render, this);
+            this.listenTo(this.model, 'change:details', this.render);
         },
 
         serialize: function() {
