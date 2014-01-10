@@ -7,10 +7,7 @@ define([
     return Backbone.Model.extend({
 
         onStateChange: function(state, args) {
-            this.set({
-                state: state,
-                value: args
-            });
+            this.set('state', state);
             this.trigger('stateChange ' + state, args);
         },
 
