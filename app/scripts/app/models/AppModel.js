@@ -8,12 +8,14 @@ define([
     return Backbone.Model.extend({
 
         onStateChange: function(state, args) {
-            this.set('state', state);
-            var module = state + '/index';
+            if (state) {
+                this.set('state', state);
+                var module = state + '/index';
 
-            require([module], _.bind(function() {
-                this.trigger('stateChange ' + state, args);
-            }, this));
+                require([module], _.bind(function() {
+                    this.trigger('stateChange ' + state, args);
+                }, this));
+            }
         },
 
         navigateTo: function(href) {
