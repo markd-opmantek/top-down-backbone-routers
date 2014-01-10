@@ -17,8 +17,18 @@ define([
         },
 
         _setViewState: function() {
-            this.$el.removeClass(this.model.previous('state'));
-            this.$el.addClass(this.model.get('state'));
+            this.$el.removeClass(this._getCssClassesFromPath(this.model.previous('state')));
+            this.$el.addClass(this._getCssClassesFromPath(this.model.get('state')));
+        },
+
+        _getCssClassesFromPath: function(path) {
+            var classes = '';
+
+            if (path) {
+                classes = path.replace('/', ' ');
+            }
+
+            return classes;
         },
 
         _navigateTo: function(e) {

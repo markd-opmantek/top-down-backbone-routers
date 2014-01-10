@@ -1,6 +1,7 @@
 define([
+    'underscore',
     'backbone'
-], function(Backbone) {
+], function(_, Backbone) {
 
     'use strict';
 
@@ -8,7 +9,11 @@ define([
 
         onStateChange: function(state, args) {
             this.set('state', state);
-            this.trigger('stateChange ' + state, args);
+            var module = state + '/index';
+
+            require([module], _.bind(function() {
+                this.trigger('stateChange ' + state, args);
+            }, this));
         },
 
         navigateTo: function(href) {

@@ -1,8 +1,8 @@
 define([
     'underscore',
     'backbone',
-    './FilterResultsCollectionItemView'
-], function(_, Backbone, FilterResultsCollectionItemView) {
+    './PeopleFilterItemView'
+], function(_, Backbone, PeopleFilterItemView) {
     'use strict';
 
     return Backbone.View.extend({
@@ -13,7 +13,7 @@ define([
 
         render: function() {
             var html = _.map(this.model.getFilteredResults(), function(result) {
-                return new FilterResultsCollectionItemView({
+                return new PeopleFilterItemView({
                     model: result
                 }).render().$el.html();
             }).join('');

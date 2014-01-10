@@ -10,11 +10,11 @@ define([
         template: _.template(
             '<h1><%= name %></h1>' +
             '<p><%= about %></p>' +
-            '<a href="/filter" class="pushState">All entries</a>'
+            '<a href="/people/filter" class="pushState">All entries</a>'
         ),
 
         initialize: function() {
-            this.listenTo(this.model, 'change:details', this.render);
+            this.listenTo(this.model, 'change:id', this.render);
         },
 
         serialize: function() {

@@ -6,8 +6,7 @@ require(['config'], function() {
         'jquery',
         'backbone',
         'Router',
-        'app/index',
-        'filter/index'
+        'app/index'
     ], function($, Backbone, Router, app) {
 
         var router = new Router();

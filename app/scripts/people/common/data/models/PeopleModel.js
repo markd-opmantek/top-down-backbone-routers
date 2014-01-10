@@ -17,7 +17,7 @@ define([
         },
 
         onDetails: function(id) {
-            this.set('details', parseInt(id[0], 10));
+            this.set('id', parseInt(id[0], 10));
         },
 
         getFilteredResults: function() {
@@ -25,7 +25,7 @@ define([
         },
 
         getDetails: function() {
-            return this.filterResultsCollection.getById(this.get('details'));
+            return this.filterResultsCollection.getById(this.get('id'));
         }
 
     });
