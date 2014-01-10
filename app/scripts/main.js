@@ -6,28 +6,14 @@ require(['config'], function() {
         'jquery',
         'backbone',
         'Router',
-        'state/index',
+        'app/index',
         'filter/index'
-    ], function($, Backbone, Router, state, filter) {
+    ], function($, Backbone, Router, app) {
 
         var router = new Router();
 
-        router.on('route', state.onStateChange, state);
-
-        state.on('request:filter', function(filter) {
-            router.navigateToFilter(filter);
-        });
-
-        state.on('request:details', function(id) {
-            router.navigateToDetails(id);
-        });
-
-        state.on('navigate', function(url) {
-            router.navigateAndTrigger(url);
-        });
-
-        state.on('filter', filter.onFilter, filter);
-        state.on('details', filter.onDetails, filter);
+        router.on('route', app.onStateChange, app);
+        app.on('navigate', router.navigateAndTrigger, router);
 
         Backbone.history.start({
             pushState: false,

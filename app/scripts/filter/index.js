@@ -1,8 +1,9 @@
 define([
     './views/FilterResultsCollectionView',
     './views/DetailView',
-    './models/FilterModel'
-], function(FilterResultsCollectionView, DetailView, FilterModel) {
+    './models/FilterModel',
+    '../app/index'
+], function(FilterResultsCollectionView, DetailView, FilterModel, app) {
 
     'use strict';
 
@@ -18,13 +19,7 @@ define([
         el: '.content article'
     });
 
-    return {
-        onDetails: function(args) {
-            filterModel.onDetails(args[0]);
-        },
+    filterModel.listenTo(app, 'filter', filterModel.onFilter);
+    filterModel.listenTo(app, 'details', filterModel.onDetails);
 
-        onFilter: function(args) {
-            filterModel.onFilter(args[0]);
-        }
-    };
 });

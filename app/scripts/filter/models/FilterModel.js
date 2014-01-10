@@ -13,11 +13,11 @@ define([
         },
 
         onFilter: function(filter) {
-            this.set('filter', filter);
+            this.set('filter', filter[0]);
         },
 
         onDetails: function(id) {
-            this.set('details', parseInt(id, 10));
+            this.set('details', parseInt(id[0], 10));
         },
 
         getFilteredResults: function() {
