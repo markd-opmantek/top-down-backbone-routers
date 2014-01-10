@@ -12,7 +12,7 @@ define([
         },
 
         render: function() {
-            var html = _.map(this.model.getFilteredResults(), function(result) {
+            var html = _.map(this.model.getFilteredPeople(), function(result) {
                 return new PeopleFilterItemView({
                     model: result
                 }).render().$el.html();

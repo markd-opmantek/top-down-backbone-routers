@@ -1,13 +1,18 @@
 define([
-    '../common/data/index',
-    './views/PeopleDetailsView'
-], function(data, PeopleDetailsView) {
+    'app/index',
+    './views/PeopleDetailsView',
+    './models/PeopleDetailsModel'
+], function(app, PeopleDetailsView, PeopleDetailsModel) {
 
     'use strict';
 
+    var peopleDetailsModel = new PeopleDetailsModel();
+
     new PeopleDetailsView({
-        model: data,
+        model: peopleDetailsModel,
         el: '.content article'
     });
+
+    peopleDetailsModel.listenTo(app, 'people/details', peopleDetailsModel.setArgs);
 
 });

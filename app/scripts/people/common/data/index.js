@@ -1,15 +1,19 @@
 define([
-    './models/PeopleModel',
-    'app/index'
-], function(PeopleModel, app) {
+    './models/data',
+    './models/PeopleCollection'
+], function(data, PeopleCollection) {
 
     'use strict';
 
-    var peopleModel = new PeopleModel();
+    var peopleCollection = new PeopleCollection(data);
 
-    peopleModel.listenTo(app, 'people/details', peopleModel.onDetails);
-    peopleModel.listenTo(app, 'people/filter', peopleModel.onFilter);
+    return {
+        getFilteredPeople: function(filter) {
+            return peopleCollection.filterByKeyword(filter);
+        },
 
-    return peopleModel;
-
+        getPersonById: function(id) {
+            return peopleCollection.getById(id);
+        }
+    };
 });
