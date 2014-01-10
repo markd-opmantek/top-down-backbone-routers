@@ -1,0 +1,13 @@
+{
+  "name": "stateless-backbonejs-routers",
+  "private": true,
+  "dependencies": {
+    "sass-bootstrap": "~3.0.0",
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0",
+    "requirejs": "~2.1.9",
+    "layoutmanager": "~0.9.4"
+  },
+  "devDependencies": {}
+}
