@@ -347,6 +347,30 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+
+        requirejs: {
+            compile: {
+                options: {
+                    appDir: 'app',
+                    baseUrl: 'scripts',
+                    dir: 'dist',
+                    mainConfigFile: 'app/scripts/config.js',
+                    keepBuildDir: true,
+                    optimize: 'none',
+                    optimizeCss: 'none',
+                    findNestedDependencies: true,
+                    modules: [{
+                        name: 'main',
+                        include: ['../bower_components/almond/almond', 'main'],
+                        create: true
+                    }, {
+                        name: 'people',
+                        include: ['people/filter/index', 'people/details/index'],
+                        create: true
+                    }]
+                }
+            }
         }
     });
 
