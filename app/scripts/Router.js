@@ -12,6 +12,7 @@ define([
         },
 
         initialize: function() {
+            this.route('', this._redirectToPeopleFilter);
             this.route('people', this._redirectToPeopleFilter);
         },
 

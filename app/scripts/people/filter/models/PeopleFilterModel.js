@@ -12,7 +12,15 @@ define([
         },
 
         getFilteredPeople: function() {
-            return data.getFilteredPeople(this.get('filter'));
+            return data.getFilteredPeople(this.getFilter());
+        },
+
+        filter: function(filter) {
+            this.trigger('filter', filter);
+        },
+
+        getFilter: function() {
+            return this.get('filter');
         }
 
     });

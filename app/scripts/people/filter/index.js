@@ -1,8 +1,10 @@
 define([
     'app/index',
     './models/PeopleFilterModel',
-    './views/PeopleFilterView'
-], function(app, PeopleFilterModel, PeopleFilterView) {
+    './models/peopleFilterUrlGenerator',
+    './views/PeopleFilterView',
+    './views/PeopleFilterFormView'
+], function(app, PeopleFilterModel, peopleFilterUrlGenerator, PeopleFilterView, PeopleFilterFormView) {
 
     'use strict';
 
@@ -13,6 +15,15 @@ define([
         el: '.content tbody'
     });
 
+    new PeopleFilterFormView({
+        model: peopleFilterModel,
+        el: '.content form'
+    });
+
     peopleFilterModel.listenTo(app, 'people/filter', peopleFilterModel.setArgs);
+
+    peopleFilterModel.on('filter', function(filter) {
+        app.navigateTo(peopleFilterUrlGenerator(filter));
+    });
 
 });
