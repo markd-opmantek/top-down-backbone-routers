@@ -1,24 +1,24 @@
 define([
     'underscore',
-    'layoutmanager'
-], function(_, LayoutManager) {
+    'backbone'
+], function(_, Backbone) {
 
     'use strict';
 
-    return LayoutManager.extend({
+    var detailsTemplate = _.template(
+        '<h2><%= name %></h2>' +
+        '<h4><%= company %></h4>' +
+        '<p><%= about %></p>'
+    );
 
-        template: _.template(
-            '<h1><%= name %></h1>' +
-            '<p><%= about %></p>' +
-            '<a href="/people/filter" class="pushState">All entries</a>'
-        ),
+    return Backbone.View.extend({
 
         initialize: function() {
             this.listenTo(this.model, 'change:id', this.render);
         },
 
-        serialize: function() {
-            return this.model.getDetails().toJSON();
+        render: function() {
+            this.$el.html(detailsTemplate(this.model.getDetails().toJSON()));
         }
     });
 });

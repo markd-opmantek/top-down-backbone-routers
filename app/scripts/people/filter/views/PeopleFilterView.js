@@ -1,9 +1,15 @@
 define([
     'underscore',
-    'backbone',
-    './PeopleFilterItemView'
-], function(_, Backbone, PeopleFilterItemView) {
+    'backbone'
+], function(_, Backbone) {
     'use strict';
+
+    var itemView = _.template('<tr>' +
+        '<td><a href="/people/details/<%= id %>" class="pushState"><%= name %></a></td>' +
+        '<td><%= company %></td>' +
+        '<td><%= phone %></td>' +
+        '<td><%= address %></td>' +
+    '</tr>');
 
     return Backbone.View.extend({
 
@@ -12,13 +18,9 @@ define([
         },
 
         render: function() {
-            var html = _.map(this.model.getFilteredPeople(), function(result) {
-                return new PeopleFilterItemView({
-                    model: result
-                }).render().$el.html();
-            }).join('');
-
-            this.$el.html(html);
+            this.$el.html(_.map(this.model.getFilteredPeople(), function(result) {
+                return itemView(result.toJSON());
+            }).join(''));
         }
 
     });
