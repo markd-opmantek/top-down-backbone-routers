@@ -1,16 +1,16 @@
 define([
-    './models/PeopleBreadcrumbCollection',
-    './views/PeopleBreadcrumbView'
-], function(PeopleBreadcrumbCollection, PeopleBreadcrumbsView) {
+    './models/BreadcrumbCollection',
+    './views/BreadcrumbView'
+], function(BreadcrumbCollection, BreadcrumbsView) {
 
     'use strict';
 
-    var peopleBreadcrumbCollection = new PeopleBreadcrumbCollection();
+    var breadcrumbCollection = new BreadcrumbCollection();
 
-    new PeopleBreadcrumbsView({
+    new BreadcrumbsView({
         el: 'ol',
-        collection: peopleBreadcrumbCollection
+        collection: breadcrumbCollection
     });
 
-    return peopleBreadcrumbCollection;
+    return breadcrumbCollection;
 });
