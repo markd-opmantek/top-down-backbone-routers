@@ -1,19 +1,23 @@
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
-@import 'sass-bootstrap/lib/bootstrap';
+@import 'bootstrap';
 
-.content > table {
+.content {
+  div.people {
+    display:none;
+  }
+}
+
+.content.filter {
+  div.people {
+    display: block;
+  }
+}
+
+.content article.person {
   display:none;
 }
 
-.content.filter > table {
-  display: block;
-}
-
-.content > article {
-  display:none;
-}
-
-.content.details > article {
+.content.details article.person {
   display: block;
 }
