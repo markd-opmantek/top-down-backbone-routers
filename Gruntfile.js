@@ -126,19 +126,6 @@ module.exports = function (grunt) {
             ]
         },
 
-
-        // Mocha testing framework configuration options
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-                }
-            }
-        },
-
-
-
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
@@ -182,28 +169,6 @@ module.exports = function (grunt) {
             }
         },
 
-        // Automatically inject Bower components into the HTML file
-        'bower-install': {
-            app: {
-                html: '<%= yeoman.app %>/index.html',
-                ignorePath: '<%= yeoman.app %>/'
-            }
-        },
-
-        // Renames files for browser caching purposes
-        rev: {
-            dist: {
-                files: {
-                    src: [
-                        '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                        '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{gif,jpeg,jpg,png,webp}',
-                        '<%= yeoman.dist %>/styles/fonts/{,*/}*.*'
-                    ]
-                }
-            }
-        },
-
         // Reads HTML for usemin blocks to enable smart builds that automatically
         // concat, minify and revision files. Creates configurations in memory so
         // additional tasks can operate on them
@@ -223,27 +188,6 @@ module.exports = function (grunt) {
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
         },
 
-        // The following *-min tasks produce minified files in the dist folder
-        imagemin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.{gif,jpeg,jpg,png}',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
         htmlmin: {
             dist: {
                 options: {
@@ -264,32 +208,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
-        // By default, your `index.html`'s <!-- Usemin block --> will take care of
-        // minification. These next options are pre-configured if you do not wish
-        // to use the Usemin blocks.
-        // cssmin: {
-        //     dist: {
-        //         files: {
-        //             '<%= yeoman.dist %>/styles/main.css': [
-        //                 '.tmp/styles/{,*/}*.css',
-        //                 '<%= yeoman.app %>/styles/{,*/}*.css'
-        //             ]
-        //         }
-        //     }
-        // },
-        // uglify: {
-        //     dist: {
-        //         files: {
-        //             '<%= yeoman.dist %>/scripts/scripts.js': [
-        //                 '<%= yeoman.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        // concat: {
-        //     dist: {}
-        // },
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -319,19 +237,6 @@ module.exports = function (grunt) {
         },
 
 
-        // Generates a custom Modernizr build that includes only the tests you
-        // reference in your app
-        modernizr: {
-            devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
-            outputFile: '<%= yeoman.dist %>/bower_components/modernizr/modernizr.js',
-            files: [
-                '<%= yeoman.dist %>/scripts/{,*/}*.js',
-                '<%= yeoman.dist %>/styles/{,*/}*.css',
-                '!<%= yeoman.dist %>/scripts/vendor/*'
-            ],
-            uglify: true
-        },
-
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
@@ -343,9 +248,7 @@ module.exports = function (grunt) {
             ],
             dist: [
                 'compass',
-                'copy:styles',
-                'imagemin',
-                'svgmin'
+                'copy:styles'
             ]
         },
 
@@ -362,12 +265,7 @@ module.exports = function (grunt) {
                     findNestedDependencies: true,
                     modules: [{
                         name: 'main',
-                        include: ['../bower_components/almond/almond', 'main'],
-                        create: true
-                    }, {
-                        name: 'people',
-                        include: ['people/filter/index', 'people/details/index'],
-                        create: true
+                        include: ['../bower_components/almond/almond', 'breadcrumbs/index', 'people/filter/index', 'people/details/index']
                     }]
                 }
             }
@@ -394,21 +292,6 @@ module.exports = function (grunt) {
         grunt.task.run(['serve']);
     });
 
-    grunt.registerTask('test', function(target) {
-        if (target !== 'watch') {
-            grunt.task.run([
-                'clean:server',
-                'concurrent:test',
-                'autoprefixer',
-            ]);
-        }
-
-        grunt.task.run([
-            'connect:test',
-            'mocha'
-        ]);
-    });
-
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
@@ -416,17 +299,14 @@ module.exports = function (grunt) {
         'autoprefixer',
         'concat',
         'cssmin',
-        'uglify',
+        'requirejs',
         'copy:dist',
-        'modernizr',
-        'rev',
         'usemin',
         'htmlmin'
     ]);
 
     grunt.registerTask('default', [
         'newer:jshint',
-        'test',
         'build'
     ]);
 };
