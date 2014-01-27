@@ -1,8 +1,9 @@
 define([
     'app/index',
+    'breadcrumbs/index',
     './views/PeopleDetailsView',
     './models/PeopleDetailsModel'
-], function(app, PeopleDetailsView, PeopleDetailsModel) {
+], function(app, breadcrumbs, PeopleDetailsView, PeopleDetailsModel) {
 
     'use strict';
 
@@ -14,5 +15,9 @@ define([
     });
 
     peopleDetailsModel.listenTo(app, 'people/details', peopleDetailsModel.setArgs);
+    peopleDetailsModel.listenTo(app, 'people/details', function() {
+        var person = peopleDetailsModel.getDetails();
+        breadcrumbs.setBreadcrumbs([person.get('name')]);
+    });
 
 });
